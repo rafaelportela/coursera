@@ -8,18 +8,6 @@ class GreedySearch:
 
     return False
 
-  def isNode(self, node):
-    if isinstance(node, Node):
-      return True
-
-    return False
-
-  def nextFrom(self, node):
-    if len(node.links) > 0:
-      return node.links[0]
-
-    return None
-
   def expandNode(self, open, node):
     for child in node.links:
       open.append(child)
@@ -34,6 +22,17 @@ class GreedySearch:
 
     return bestNode
 
+  def backtrack(self, node):
+    path = []
+    current = node
+    path.append(node)
+
+    while current.parent != None:
+      current = current.parent
+      path.insert(0, current)
+
+    return path
+
   def printPath(self, path):
     str = "["
     for node in path:
@@ -42,24 +41,17 @@ class GreedySearch:
     print(str + "]")
 
   def search(self, root, goal):
-    path = []
-    closed = []
+    node = root
     open = []
 
-    path.append(root)
     self.expandNode(open, root)
 
     while len(open) > 0:
-
       node = self.best(open)
       open.remove(node)
-
       if self.isGoal(node):
-        path.append(node)
         break
-
-      path.append(node)
       self.expandNode(open, node)
 
-    return path
+    return self.backtrack(node)
 
