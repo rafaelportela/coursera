@@ -19,6 +19,23 @@ class NodeHoldsLabelAndData(unittest.TestCase):
     n = Node('label', 'stuff')
     self.assertEqual('stuff', n.data)
 
+class NodeIsLinkedToOtherNodes(unittest.TestCase):
+
+  def testNodeWithLinkToOtherNode(self):
+    n1 = Node('n1')
+    n2 = Node('n2')
+    n1.addLinkTo(n2)
+
+    self.assertEqual('n2', n1.links[0].label)
+
+class NodesAreComparedByLabel(unittest.TestCase):
+
+  def testCompareByLabel(self):
+    n1 = Node('a_node')
+    n2 = Node('a_node')
+
+    self.assertEqual(n1, n2)
+
 if __name__ == '__main__':
   unittest.main()
 
