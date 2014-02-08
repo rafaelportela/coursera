@@ -1,6 +1,6 @@
 from node import Node
 
-class GreedySearch:
+class BestFirstSearch:
 
   def isGoal(self, node):
     if node.label == 'goal':
