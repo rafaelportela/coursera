@@ -2,6 +2,9 @@ from node import Node
 
 class BestFirstSearch:
 
+  def __init__(self, strategy):
+    self.strategy = strategy
+
   def isGoal(self, node):
     if node.label == 'goal':
       return True
@@ -47,7 +50,7 @@ class BestFirstSearch:
     self.expandNode(open, root)
 
     while len(open) > 0:
-      node = self.best(open)
+      node = self.strategy.selectNext(open)
       open.remove(node)
       if self.isGoal(node):
         break
