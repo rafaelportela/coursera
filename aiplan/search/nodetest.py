@@ -28,6 +28,14 @@ class NodeIsLinkedToOtherNodes(unittest.TestCase):
 
     self.assertEqual('n2', n1.links[0].label)
 
+  def testLinkWithParent(self):
+    n1 = Node('n1')
+    n2 = Node('n2')
+    n1.addLinkTo(n2)
+
+    self.assertEqual('n1', n2.parent.label)
+
+
 class NodesAreComparedByLabel(unittest.TestCase):
 
   def testCompareByLabel(self):
@@ -35,6 +43,11 @@ class NodesAreComparedByLabel(unittest.TestCase):
     n2 = Node('a_node')
 
     self.assertEqual(n1, n2)
+
+  def testCompareWithNonNodeObj(self):
+    n1 = Node('node')
+
+    self.assertFalse(n1 == None)
 
 if __name__ == '__main__':
   unittest.main()
