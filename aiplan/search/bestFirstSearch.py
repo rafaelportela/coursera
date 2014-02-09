@@ -1,29 +1,11 @@
 from node import Node
 
-class BestFirstSearch:
+class DefaultNodeExpander:
 
-  def __init__(self, strategy):
-    self.strategy = strategy
+  def expand(self, node):
+    return node.links
 
-  def isGoal(self, node):
-    if node.label == 'goal':
-      return True
-
-    return False
-
-  def expandNode(self, open, node):
-    for child in node.links:
-      open.append(child)
-
-  def best(self, open):
-    bestNode = open[0]
-
-    if len(open) > 1:
-      for i in range(1, len(open)):
-        if open[i].data < bestNode.data:
-          bestNode = open[i]
-
-    return bestNode
+class Tracker:
 
   def backtrack(self, node):
     path = []
@@ -35,6 +17,36 @@ class BestFirstSearch:
       path.insert(0, current)
 
     return path
+
+class BestFirstSearch:
+
+  def __init__(self, \
+      strategy, \
+      expander=DefaultNodeExpander()):
+
+    self.strategy = strategy
+    self.expander = expander
+
+  def isGoal(self, node):
+    if node.label == 'goal':
+      return True
+
+    return False
+
+  def expandNode(self, open, node):
+    new_nodes = self.expander.expand(node)
+    for new in new_nodes:
+      open.append(new)
+
+  def best(self, open):
+    bestNode = open[0]
+
+    if len(open) > 1:
+      for i in range(1, len(open)):
+        if open[i].data < bestNode.data:
+          bestNode = open[i]
+
+    return bestNode
 
   def printPath(self, path):
     str = "["
@@ -56,5 +68,5 @@ class BestFirstSearch:
         break
       self.expandNode(open, node)
 
-    return self.backtrack(node)
+    return Tracker().backtrack(node)
 
