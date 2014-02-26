@@ -1,9 +1,5 @@
 from node import Node
 
-class DefaultNodeExpander:
-
-  def expand(self, node):
-    return node.links
 
 class Tracker:
 
@@ -20,18 +16,10 @@ class Tracker:
 
 class BestFirstSearch:
 
-  def __init__(self, \
-      strategy, \
-      expander=DefaultNodeExpander()):
-
+  def __init__(self, strategy, expander, goalVerifier):
     self.strategy = strategy
     self.expander = expander
-
-  def isGoal(self, node):
-    if node.label == 'goal':
-      return True
-
-    return False
+    self.goalVerifier = goalVerifier
 
   def expandNode(self, open, node):
     new_nodes = self.expander.expand(node)
@@ -64,7 +52,7 @@ class BestFirstSearch:
     while len(open) > 0:
       node = self.strategy.selectNext(open)
       open.remove(node)
-      if self.isGoal(node):
+      if self.goalVerifier.isGoal(node):
         break
       self.expandNode(open, node)
 

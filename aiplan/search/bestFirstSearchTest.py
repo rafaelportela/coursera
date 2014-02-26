@@ -3,11 +3,38 @@ from greedyStrategy import GreedyStrategy
 from bestFirstSearch import BestFirstSearch
 import unittest
 
+def bestFirstSearch():
+    return BestFirstSearch( \
+        GreedyStrategy(), \
+        DefaultNodeExpander(), \
+        CustomGoalVerifier())
+
+class CustomGoalVerifier:
+
+  def isGoal(self, node):
+    if node.label == 'the_goal':
+      return True
+
+    return False
+
+class DefaultNodeExpander:
+
+  def expand(self, node):
+    return node.links
+
+class DefaultGoalVerifier:
+
+  def isGoal(self, node):
+    if node.label == 'goal':
+      return True
+
+    return False
+
 class BestFirstSearchTest(unittest.TestCase):
 
   def testRootAsGoal(self):
     root = Node('goal')
-    g = BestFirstSearch(GreedyStrategy())
+    g = bestFirstSearch()
     path = g.search(root, root)
 
     self.assertEqual([root], path)
@@ -17,7 +44,7 @@ class BestFirstSearchTest(unittest.TestCase):
     goal = Node('goal', 10)
     root.addLinkTo(goal)
 
-    g = BestFirstSearch(GreedyStrategy())
+    g = bestFirstSearch()
     path = g.search(root, goal)
 
     self.assertEqual([root, goal], path)
@@ -34,7 +61,7 @@ class BestFirstSearchTest(unittest.TestCase):
     left.addLinkTo(goal)
     right.addLinkTo(goal)
 
-    g = BestFirstSearch(GreedyStrategy())
+    g = bestFirstSearch()
     path = g.search(root, goal)
 
     self.assertEqual([root, right, goal], path)
@@ -50,10 +77,26 @@ class BestFirstSearchTest(unittest.TestCase):
     goal = Node('goal', 10)
     left.addLinkTo(goal)
 
-    g = BestFirstSearch(GreedyStrategy())
+    g = bestFirstSearch()
     path = g.search(root, goal)
 
     self.assertEqual([root, left, goal], path)
+
+
+class CustomGoalVerifierTest(unittest.TestCase):
+
+  def testGivenGoalComparator(self):
+    root = Node('root')
+    goal = Node('the_goal', 20)
+    other = Node('other', 20)
+
+    root.addLinkTo(goal)
+    goal.addLinkTo(other)
+
+    g = bestFirstSearch()
+    path = g.search(root, goal)
+
+    self.assertEqual([root, goal], path)
 
 from bestFirstSearch import Tracker
 
