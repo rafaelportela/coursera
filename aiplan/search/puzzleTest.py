@@ -120,5 +120,15 @@ class GeneratorClass(unittest.TestCase):
     state = Generator().moveZeroLeft(current)
     self.assertEqual(state, expected)
 
+from puzzle import GoalVerifier
+
+class GoalVerifierTest(unittest.TestCase):
+
+  def testIfNodeIsGoalNode(self):
+    puzzle = Puzzle("012345678")
+
+    verifier = GoalVerifier()
+    self.assertTrue(verifier.isGoal(puzzle))
+
 if __name__ == '__main__':
   unittest.main()

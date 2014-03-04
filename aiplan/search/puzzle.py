@@ -135,3 +135,11 @@ class Generator:
   def column(self, index):
     return int(index % 3)
 
+class GoalVerifier:
+
+  def isGoal(self, puzzle):
+    if puzzle.state == '012345678':
+      return True
+    else:
+      return False
+
