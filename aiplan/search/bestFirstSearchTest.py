@@ -11,8 +11,8 @@ def bestFirstSearch():
 
 class CustomGoalVerifier:
 
-  def isGoal(self, node):
-    if node.label == 'the_goal':
+  def isGoal(self, data):
+    if data == 0:
       return True
 
     return False
@@ -22,18 +22,10 @@ class DefaultNodeExpander:
   def expand(self, node):
     return node.links
 
-class DefaultGoalVerifier:
-
-  def isGoal(self, node):
-    if node.label == 'goal':
-      return True
-
-    return False
-
 class BestFirstSearchTest(unittest.TestCase):
 
   def testRootAsGoal(self):
-    root = Node('goal')
+    root = Node('goal', 0)
     g = bestFirstSearch()
     path = g.search(root, root)
 
@@ -41,7 +33,7 @@ class BestFirstSearchTest(unittest.TestCase):
 
   def testOnlyRootAndGoalNodes(self):
     root = Node('root', 10)
-    goal = Node('goal', 10)
+    goal = Node('goal', 0)
     root.addLinkTo(goal)
 
     g = bestFirstSearch()
@@ -57,7 +49,7 @@ class BestFirstSearchTest(unittest.TestCase):
     root.addLinkTo(left)
     root.addLinkTo(right)
 
-    goal = Node('goal', 10)
+    goal = Node('goal', 0)
     left.addLinkTo(goal)
     right.addLinkTo(goal)
 
@@ -74,7 +66,7 @@ class BestFirstSearchTest(unittest.TestCase):
     root.addLinkTo(left)
     root.addLinkTo(right)
 
-    goal = Node('goal', 10)
+    goal = Node('goal', 0)
     left.addLinkTo(goal)
 
     g = bestFirstSearch()
@@ -86,8 +78,8 @@ class BestFirstSearchTest(unittest.TestCase):
 class CustomGoalVerifierTest(unittest.TestCase):
 
   def testGivenGoalComparator(self):
-    root = Node('root')
-    goal = Node('the_goal', 20)
+    root = Node('root', 10)
+    goal = Node('the_goal', 0)
     other = Node('other', 20)
 
     root.addLinkTo(goal)

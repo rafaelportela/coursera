@@ -52,7 +52,7 @@ class BestFirstSearch:
     while len(open) > 0:
       node = self.strategy.selectNext(open)
       open.remove(node)
-      if self.goalVerifier.isGoal(node):
+      if self.goalVerifier.isGoal(node.data):
         break
       self.expandNode(open, node)
 
