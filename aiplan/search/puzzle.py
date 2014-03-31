@@ -43,21 +43,29 @@ class PuzzleStateComparator:
 
 class Generator:
 
-  def statesFrom(self, current):
-    zeroIndex = current.state.rfind('0')
+  def expand(self, current):
+    nodes = []
+    states = self.statesFrom(current.data)
+    for state in states:
+      current.addLinkTo(Node(state, Puzzle(state)))
+
+    return current.links
+
+  def statesFrom(self, puzzle):
+    zeroIndex = puzzle.state.rfind('0')
     possibleStates = []
 
     if self.canZeroMoveUp(zeroIndex):
-      possibleStates.append(self.moveZeroUp(current.state))
+      possibleStates.append(self.moveZeroUp(puzzle.state))
 
     if self.canZeroMoveDown(zeroIndex):
-      possibleStates.append(self.moveZeroDown(current.state))
+      possibleStates.append(self.moveZeroDown(puzzle.state))
 
     if self.canZeroMoveRight(zeroIndex):
-      possibleStates.append(self.moveZeroRight(current.state))
+      possibleStates.append(self.moveZeroRight(puzzle.state))
 
     if self.canZeroMoveLeft(zeroIndex):
-      possibleStates.append(self.moveZeroLeft(current.state))
+      possibleStates.append(self.moveZeroLeft(puzzle.state))
 
     return possibleStates
 
