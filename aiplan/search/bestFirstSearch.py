@@ -21,10 +21,11 @@ class BestFirstSearch:
     self.expander = expander
     self.goalVerifier = goalVerifier
 
-  def expandNode(self, open, node):
+  def expandNode(self, open, visited, node):
     new_nodes = self.expander.expand(node)
     for new in new_nodes:
-      open.append(new)
+      if new not in visited:
+        open.append(new)
 
   def best(self, open):
     bestNode = open[0]
@@ -46,15 +47,18 @@ class BestFirstSearch:
   def search(self, root, goal):
     node = root
     open = []
+    visited = []
 
-    self.expandNode(open, root)
+    self.expandNode(open, visited, root)
 
     while len(open) > 0:
       node = self.strategy.selectNext(open)
+      visited.append(node)
+
       open.remove(node)
       if self.goalVerifier.isGoal(node.data):
         break
-      self.expandNode(open, node)
+      self.expandNode(open, visited, node)
 
     return Tracker().backtrack(node)
 
