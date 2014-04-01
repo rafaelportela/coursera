@@ -151,3 +151,20 @@ class GoalVerifier:
     else:
       return False
 
+from closestStrategy import *
+from bestFirstSearch import *
+
+comparator = PuzzleStateComparator()
+generator = Generator()
+strategy = ClosestStrategy(comparator)
+verifier = GoalVerifier()
+
+root = Node('root', Puzzle("120345678"))
+goal = Node('goal', Puzzle("012345678"))
+
+search = BestFirstSearch(strategy, generator, verifier)
+path = search.search(root, goal)
+
+print("path size: ", len(path))
+for node in path:
+  print("path ", node.data.state)
