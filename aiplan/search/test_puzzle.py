@@ -129,6 +129,3 @@ class GoalVerifierTest(unittest.TestCase):
 
     verifier = GoalVerifier()
     self.assertTrue(verifier.isGoal(puzzle))
-
-if __name__ == '__main__':
-  unittest.main()
