@@ -1,6 +1,6 @@
 from node import Node
-from greedyStrategy import GreedyStrategy
-from bestFirstSearch import BestFirstSearch
+from greedy_strategy import GreedyStrategy
+from best_first_search import BestFirstSearch
 import unittest
 
 def bestFirstSearch():
@@ -90,7 +90,7 @@ class CustomGoalVerifierTest(unittest.TestCase):
 
     self.assertEqual([root, goal], path)
 
-from bestFirstSearch import Tracker
+from best_first_search import Tracker
 
 class BacktrackTest(unittest.TestCase):
 
@@ -102,6 +102,3 @@ class BacktrackTest(unittest.TestCase):
 
     path = Tracker().backtrack(n2)
     self.assertEqual([n1, n2], path)
-
-if __name__ == '__main__':
-  unittest.main()

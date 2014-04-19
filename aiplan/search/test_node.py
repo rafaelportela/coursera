@@ -48,7 +48,3 @@ class NodesAreComparedByLabel(unittest.TestCase):
     n1 = Node('node')
 
     self.assertFalse(n1 == None)
-
-if __name__ == '__main__':
-  unittest.main()
-

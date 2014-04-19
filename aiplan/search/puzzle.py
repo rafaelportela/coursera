@@ -151,8 +151,8 @@ class GoalVerifier:
     else:
       return False
 
-from closestStrategy import *
-from bestFirstSearch import *
+from closest_strategy import *
+from best_first_search import *
 
 comparator = PuzzleStateComparator()
 generator = Generator()

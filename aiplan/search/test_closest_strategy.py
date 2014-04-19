@@ -1,5 +1,5 @@
 from node import Node
-from closestStrategy import ClosestStrategy
+from closest_strategy import ClosestStrategy
 import unittest
 
 puzzle_goal = '012345678'
@@ -49,6 +49,3 @@ class CustomDataComparator:
       return -1
     else:
       return 0
-
-if __name__ == '__main__':
-  unittest.main()

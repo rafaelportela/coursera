@@ -1,5 +1,5 @@
 from node import Node
-from greedyStrategy import GreedyStrategy
+from greedy_strategy import GreedyStrategy
 import unittest
 
 class GreedyStrategyTest(unittest.TestCase):
@@ -24,6 +24,3 @@ class GreedyStrategyTest(unittest.TestCase):
 
     selected = g.selectNext(fringe)
     self.assertEqual(selected, None)
-
-if __name__ == '__main__':
-  unittest.main()
