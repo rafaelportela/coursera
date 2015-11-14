@@ -9,3 +9,6 @@ Then, generate a file with the first 20 lines of the output file.
 
 ## Problem 2 - Derive the sentiment of each tweet
 python tweet_sentiment.py AFINN-111.txt output2.txt
+
+## Problem 4 - Compute Term Frequency
+``` python frequency.py output.json```
