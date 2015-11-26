@@ -19,3 +19,7 @@ The output should be similar to `solutions/join.json`.
 Count the number of friends of each person using map reduce.
 
 ```python friend_count.py data/friends.json```
+
+## Problem 4
+
+List the non simetric friendships
