@@ -23,3 +23,11 @@ Count the number of friends of each person using map reduce.
 ## Problem 4
 
 List the non simetric friendships
+
+```python asymmetric_friendship.py data/friends.json```
+
+## Problem 5
+
+Remove the last 10 characters from each dna, and print the unique ones
+
+```python unique_trims.py data/dna.json```
