@@ -35,24 +35,44 @@ model_7 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 
 model_8 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8, data = train)
 model_9 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9, data = train)
 model_10 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10, data = train)
+model_11 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10 + power_11, data = train)
+model_12 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10 + power_11 + power_12, data = train)
+model_13 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10 + power_11 + power_12 + power_13, data = train)
+model_14 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10 + power_11 + power_12 + power_13 + power_14, data = train)
+model_15 <- lm(price ~ power_1 + power_2 + power_3 + power_4 + power_5 + power_6 + power_7 + power_8 + power_9 + power_10 + power_11 + power_12 + power_13 + power_14 + power_15, data = train)
 
-for (i in 3:15) {
-  vars <- 'price ~ power_1 + power_2 + power_3'
-  for (j in 1:i) {
-    vars <- paste(vars, ' + power_', j, sep='')
-  }
-  formula <- as.formula(vars)
-  models <- append(models, lm(formula, train))
-}
+#for (i in 3:15) {
+#  vars <- 'price ~ power_1 + power_2 + power_3'
+#  for (j in 1:i) {
+#    vars <- paste(vars, ' + power_', j, sep='')
+#  }
+#  formula <- as.formula(vars)
+#  models <- append(models, lm(formula, train))
+#}
 
 rss <- function(model, dataset) {
   predictions <- predict(model, dataset)
   residuals <- predictions - dataset$price
-  rss <- sum(residuals**2)  
+  sum(residuals**2)
 }
 
 rss_1 <- rss(model_1, valid)
 rss_2 <- rss(model_2, valid)
 rss_3 <- rss(model_3, valid)
 
-rsss <- c(rss_1, rss_2, rss_3)
+rsss <- c(rss_1, rss_2, rss_3,
+          rss(model_4, valid),
+          rss(model_5, valid),
+          rss(model_6, valid),
+          rss(model_7, valid),
+          rss(model_8, valid),
+          rss(model_9, valid),
+          rss(model_10, valid),
+          rss(model_11, valid),
+          rss(model_12, valid),
+          rss(model_13, valid),
+          rss(model_14, valid),
+          rss(model_15, valid))
+
+min_rss_model <- model_5
+rss_of_selected_model_against_test <- rss(min_rss_model, test)
